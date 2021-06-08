@@ -1,0 +1,2 @@
+continent,date,iso_code,location,month,new_vaccinations,new_vaccinations_smoothed,people_fully_vaccinated,people_vaccinated,total_vaccinations
+Europe,2020-12-02 00:00:00,NOR,Norway,12,0.0,0.0,0.0,1.0,1.0
