@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>homepage</title>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="./css/country.css">
+  <link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
+  <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
+  <link rel="stylesheet" href="./css/src/radar-chart.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/flatly/bootstrap.min.css">
+  <link rel="stylesheet" href="https://bootswatch.com/_vendor/font-awesome/css/font-awesome.min.css">
+ 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <script src="http://d3js.org/d3.v3.js" charset="utf-8"></script>
+  <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+  <script type="text/javascript" src="./css/src/radar-chart.js"></script>
+  <script src="d3-geomap-1.0.1/vendor/d3.geomap.dependencies.min.js"></script>
+  <script src="d3-geomap-1.0.1/js/d3.geomap.js"></script>
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+  <script type="text/javascript">
+    RadarChart.defaultConfig.color = function() {};
+    RadarChart.defaultConfig.radius = 3;
+  </script>
+  <script>
+    d3.csv('./data/country/2021-05-31.csv', function(data) {
+        // the columns you'd like to display
+        var columns = ['location','total_vaccinations','people_vaccinated','people_fully_vaccinated','new_vaccinations','new_vaccinations_smoothed'];
+        // var columns = ['location','total_vaccinations','people_vaccinated','people_fully_vaccinated'];
+        tabulate(data, columns);
+        
+    });
+    function tabulate(data, columns) {
+        var table = d3.select("#t1");
+        table.select('tbody').remove();  // remove any existing data
+        var tbody = table.append('tbody');
+        data.forEach(function(row) {
+            var tr = tbody.append('tr');
+            columns.forEach(function(column) {
+                // console.log(row[column])
+                // data3 = d3.format(',.02f')(row[column]/1000);
+                tr.append('td').text(row[column]);
+            });
+        });
+        return table;
+    }
+  </script>
+</head>
+
+
+<body data-spy="scroll" data-target=".navbar" data-offset="50">
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary">
+            <div class="container-fuild">
+                <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>   -->
+                <div class="collapse navbar-collapse" id="mynavbar">
+                    
+                    <ul class="nav navbar-nav">
+                        <li class="nav-item" >
+                            <a class="nav-link" href="./Entrance.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./Grobal.html">Global Level</a>
+                        </li>
+                        <!-- <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"> Country Level </a> 
+                            <ul class="dropdown-menu">
+                                <li><a href="other.html">LinearGraph</a></li> 
+                                <div class="dropdown-divider"></div> 
+                                <li><a href="other.html">BarChart</a></li>
+                            </ul> 
+                        </li> -->
+                        <li class="navbar-brand">
+                            <a href="Country.html">National Level</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="">Source</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled" href="../help/">Help</a>
+                        </li>
+                    <!-- <ul class="navbar-nav ms-md-auto"> -->
+                        <li class="nav-item">
+                            <a class="nav-link" href=""><i class="fa fa-github"></i> GitHub</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+
+    <div id="home" class="parallax jumbotron">
+        <div class="container-fluid">
+            <h2 id ="title">COVID-19 (coronavirus) Vaccination Progress In country Level</h3>  
+
+        </div>
+    </div>
+    
+    <div>
+        <h4>Radar Chart of vaccination  progress in different countries</h4>
+        <p class="at">Include data in CSV format. The <strong>first row are the headers</strong> and the <strong>first column is the class names.</strong></p>
+        <div id = 'text' style="align-items: center;">
+            <textarea id="data" cols="60" rows="20" >
+                countryname/ total_vaccinations/people_vaccinated / people_fully_vaccinated/new_vaccinations/ new_vaccinations_smoothed
+                Nigeria	/2030063.0	/1956598.0	/73465.0	/15473.0	/13654.0
+                Austria	/5132295.0	/3631456.0	/1540042.0	/40231.0	/69967.0
+                Australia	/4243600.0	/3744363.0	/499237.0	/30701.0	/90078.0
+                Montenegro	/210720.0	/132480.0	/78240.0	/4176.0	/7590.0
+                Malaysia	/3156872.0	/2011455.0	/1145417.0	/95420.0	/75127.0
+            </textarea><br />
+            <small> you can check the relative date below(checkBox: true). then to copy and split the data with '/', you can see the radar-chart.</small>
+            <!-- <table class= "cumtable" id="t1" style="display: none;">
+                <thead>
+                    <style>
+                        td{
+                            white-space:nowrap;overflow:hidden;text-overflow: ellipsis;
+                        }    
+                    </style>
+                    <tr class="table-success">
+                        <th class= "cumtable" scope="col" >countryname</th>
+                        <th class= "cumtable" scope="col" >total_vac</th>
+                        <th class= "cumtable" scope="col" >people_vac<th>
+                        <th class= "cumtable" scope="col" >people_ful_vac</th>
+                         <th class= "cumtable" scope="col" >new_vac</th>
+                        <th class= "cumtable" scope="col" >new_vac_sm</th>
+                    </tr>
+                </thead>
+            </table>  -->
+        </div>
+        <br />
+        <div>
+            <p class="at">Set up the width and height of radar-chart: </p>
+            <p>
+                Width: <input type="number" name="w" id="w" class="form-control" value="600" min="200" max="2000" step="" required="required" title="">
+                Height: <input type="number" name="h" id="h" class="form-control" value="600" min="200" max="2000" step="" required="required" title="">
+            </p>
+            <p class="at"> * you can control the number of attributes:(default:3， max = 5)</p>
+            <input id="slider" type="range" min="1" max="5" value="1" step="1" />
+            <!-- <p class="at"> * you can control the number of countries:(default:3, max = 5)</p>
+            <input id="slider2" type="range" min="1" max="5" value="1" step="1" /> -->
+            <span id="range">3</span>
+            <p class="at"><button onclick='showRadar()' class="btn btn-default" style="width:200px;height:50px;">Draw!</button></p>
+        </div>
+
+        <script type="text/javascript">
+        var val = 3;
+        onload = function() {
+                var $ = function(id) { return document.getElementById(id); };
+                // var val= function() { $('range').innerHTML = this.value; return this.value;};;
+                $('slider').oninput = function() { $('range').innerHTML = this.value; 
+                                                // console.log("number: "+ this.value);
+                                            };
+                // console.log("number: "+ val);
+                $('slider').oninput();
+                // return this.value;
+            };
+        d3.selectAll("input").on("change", function change() {
+                var value = this.value;
+                console.log("model value: "+value);
+                switch (value) {
+                    case "1":
+                        val = 1;console.log("number: "+ val);
+                        break;
+                    case "2":
+                        val = 2;console.log("number: "+ val);
+                        break;
+                    case "3":
+                        val = 3;console.log("number: "+ val);
+                        break;
+                    case "4":
+                        val = 4;console.log("number: "+ val);
+                        break;
+                    case "5":
+                        val = 5;console.log("number: "+ val);
+                        break;
+                }
+        });
+        
+        // d3.csv('./data/country/2021-05-31.csv', function(data) {
+        //             // the columns you'd like to display
+        //             var columns = ['location','total_vaccinations','people_vaccinated','people_fully_vaccinated','new_vaccinations','new_vaccinations_smoothed'];
+        //             tabulate(data, columns);
+        //         });
+        // function tabulate(data, columns) {
+        //     data.forEach(function(row) {
+        //         var tr = tbody.append('tr');
+        //         columns.forEach(function(column) {
+        //             // console.log(row[column])
+        //             // data3 = d3.format(',.02f')(row[column]/1000);
+        //             tr.append('td').text(row[column]);
+        //         });
+        //     });
+        //     return table;
+        // }
+
+        function showRadar(){
+            var data = [];
+            var chart = RadarChart.chart();
+        
+        var c = document.getElementById("data").value,
+            w = document.getElementById("w").value,
+            h = document.getElementById("h").value,
+        csv = c.split("\n").map(function(i){return i.split("/")})
+        headers = []
+        csv.forEach(function(item, i){
+            if(i==0){
+            headers = item;
+            }else{
+            newSeries = {};
+            console.log("number: "+ val);
+            item.forEach( function(v, j){
+                if(j==0){
+                newSeries.className = v;
+                newSeries.axes = [];
+                }
+                else if(j<=val){
+                newSeries.axes.push({"axis":[headers[j]], "value": parseFloat(v)});
+                }
+            });
+            data.push(newSeries);
+            }
+        })
+        RadarChart.defaultConfig.radius = 3;
+        RadarChart.defaultConfig.w = w;
+        RadarChart.defaultConfig.h = h;
+        RadarChart.draw("#chart-container", data);
+        function animate(elem,time) {
+            if( !elem) return;
+            var to = elem.offsetTop;
+            var from = window.scrollY;
+            var start = new Date().getTime(),
+                timer = setInterval(function() {
+                    var step = Math.min(1,(new Date().getTime()-start)/time);
+                    window.scrollTo(0,(from+step*(to-from))+1);
+                    if( step == 1){ clearInterval(timer);};
+                },25);
+                window.scrollTo(0,(from+1));
+            }
+
+        var divVal = document.getElementById('chart-container');
+        animate(divVal,600);
+        }
+        </script>
+        <div id="chart-container"></div>
+
+        <p class="at">The table of country information</p>
+        <p class="at">Display table when the checkbox is checked:</p>
+
+        <label for="myCheck">Checkbox:</label> 
+        <input type="checkbox" id="myCheck" onclick="myFunction()">
+
+        <script>
+        function myFunction() {
+        var checkBox = document.getElementById("myCheck");
+        var text = document.getElementById("text");
+        if (checkBox.checked == true){
+            t1.style.display = "block";
+        } else {
+            t1.style.display = "none";
+        }
+        }
+        </script>
+
+        <table class= "cumtable" id="t1" style="display: none;">
+            <thead>
+                <style>
+                    td{
+                        white-space:nowrap;overflow:hidden;text-overflow: ellipsis;
+                    }    
+                </style>
+                <tr class="table-success">
+                    <th class= "cumtable" scope="col" >countryname</th>
+                    <th class= "cumtable" scope="col" >total_vac</th>
+                    <th class= "cumtable" scope="col" >people_vac<th>
+                    <th class= "cumtable" scope="col" >people_ful_vac</th>
+                    <th class= "cumtable" scope="col" >new_vac</th>
+                    <th class= "cumtable" scope="col" >new_vac_sm</th> 
+                </tr>
+            </thead>
+        </table> 
+
+        <script type="text/javascript">
+            RadarChart.defaultConfig.levelTick = true;
+        </script>
+    </div>
+
+
+
+
+
+
+
+    
+    
+    
+</body>
+</html>
+
+

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Migrant stock map by destination</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js" charset="utf-8"></script>
+    <link href="d3-geomap-1.0.1/css/d3.geomap.css" rel="stylesheet">
+    <link href="css/home.css" rel="stylesheet"> 
+    <script src="d3-geomap-1.0.1/vendor/d3.geomap.dependencies.min.js"></script>
+    <script src="d3-geomap-1.0.1/js/d3.geomap.js"></script>
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+</head>
+<body>
+<h2>Number of International Migrants by Destination Country or Area</h2>
+<div class="dropdown">
+    <button onclick="myFunction()" class="dropbtn">Menu</button>
+    <div id="myDropdown" class="dropdown-content">
+        <a href=index.html>Migrants Map</a>
+        <a href=origin.html>Emigrants Map</a>
+        <a href=migrant_trends.html>Migrants Trend</a>
+        <a href=gender.html>Migrants Comparison By Gender</a>
+    </div>
+</div>
+<!-- <input id="slider" type="range" min="1990" max="2015" value="1990" step="5" /> -->
+<!-- <span id="range">1990</span>  -->
+
+<input id="slider", type="date">
+<span id="range">1900</span>
+<div id="dialog"></div>
+<div id="map"></div>
+<div id="barchart"></div>
+
+<script type="text/javascript">
+    function myFunction() {
+        document.getElementById("myDropdown").classList.toggle("show");
+    }
+
+    // Close the dropdown if the user clicks outside of it
+    window.onclick = function(event) {
+        if (!event.target.matches('.dropbtn')) {
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            var i;
+            for (i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
+                }
+            }
+        }
+    }
+
+    onload = function() {
+        var $ = function(id) { 
+            return document.getElementById(id); 
+        };
+        $('slider').oninput = function() { $('range').innerHTML = this.value; };
+        $('slider').oninput();
+    };
+
+
+    var format = function(d) {
+        d = d / 1000000;
+        return d3.format(',.02f')(d) + 'M';
+    }
+
+    var map = d3.geomap.choropleth()
+        .geofile('test/countries.json')
+        .colors(colorbrewer.YlGnBu[9])
+        .format(format)
+        .column("1990")
+        .legend(true)
+        .unitId('Country Code');
+    var path = d3.geo.path();
+
+    d3.csv('./data/date.csv', function(error, data) {
+        d3.select('#map')
+                .datum(data).call(map.draw, map)
+                .on("click", function (d) {
+                    d3.select("#dialog").selectAll("*").remove();
+                    var name = map.properties.name;
+
+                    if (name != null || name.trim() != "") {
+                    var margin = {top: 20, right: 20, bottom: 70, left: 40},
+                            width = 300 - margin.left - margin.right,
+                            height = 430 - margin.top - margin.bottom;
+
+                    var x = d3.scale.ordinal().rangeRoundBands([0, width], .05);
+
+                    var y = d3.scale.linear().range([height, 0]);
+
+                    var xAxis = d3.svg.axis()
+                            .scale(x)
+                            .orient("bottom");
+
+                    var yAxis = d3.svg.axis()
+                            .scale(y)
+                            .orient("left")
+                            .tickFormat(d3.format("g"))
+                            .tickSize(-5);
+
+                    var svg = d3.select("#dialog").append("svg")
+                            .attr("width", width + margin.left + margin.right)
+                            .attr("height", height + margin.top + margin.bottom)
+                            .append("g")
+                            .attr("transform",
+                                    "translate(" + margin.left + "," + margin.top + ")");
+
+                        $( "#dialog" ).dialog({
+                            position: { my: "left top", at: "right center" }
+                        });
+
+                        // d3.csv("Total_Origin.csv", function (error, data) {
+
+                        //     data = data.filter(function (column) {
+                        //         return column['Country Code'] == name;
+                        //     });
+
+
+                        //     var migration = data.map(function (o) {
+                        //         var r = map.properties.column;
+                        //         return o[r];
+                        //     });
+
+                        d3.csv("../data/date.csv", function (error, data) {
+
+                            data = data.filter(function (column) {
+                                // return column['iso_code'] == name;
+                                return column['location'] == name;
+                            });
+
+                            var emigration = data.map(function (o) {
+                                var r = map.properties.column;
+                                console.log(r);
+                                return o[r];
+                            });
+
+
+                            var dataset = [{"Population": "Emigration", "Value": Number(emigration) / 1000000},
+                                {"Population": "Migration", "Value": Number(migration) / 1000000}];
+                            dataset.forEach(function (d) {
+                                d.Population = d.Population;
+                                d.Value = +d.Value;
+
+                            });
+
+                            x.domain(dataset.map(function (d) {
+                                return d.Population;
+                            }));
+                            y.domain([0, d3.max(dataset, function (d) {
+                                return d.Value;
+                            })]);
+
+                            svg.append("g")
+                                    .attr("class", "x axis")
+                                    .attr("transform", "translate(0," + height + ")")
+                                    .call(xAxis)
+                                    .selectAll("text")
+                                    .style("text-anchor", "end")
+                                    .attr("dx", "2.5em")
+                                    .attr("dy", "1em");
+
+                            svg.append("g")
+                                    .attr("class", "y axis")
+                                    .call(yAxis)
+                                    .append("text")
+                                    .attr("transform", "rotate(-90)")
+                                    .attr("y", 6)
+                                    .attr("dy", ".71em")
+                                    .style("text-anchor", "end")
+                                    .text("Migrant Stock(M)");
+
+                            svg.append("text")
+                                    .attr("x", (width / 2))
+                                    .attr("y", 0 - (margin.top / 2))
+                                    .attr("text-anchor", "middle")
+                                    .style("font-size", "14px")
+                                    .style("text-decoration", "underline")
+                                    .text(map.properties.country + " (" + map.properties.column + ")")
+
+                            var colors = d3.scale.ordinal()
+                                    .range(["#6b486b", "#d0743c"]);
+
+                            svg.selectAll("bar")
+                                    .data(dataset)
+                                    .enter().append("rect")
+                                    .style("fill", function (d, i) {
+                                        return colors(i);
+                                    })
+                                    .attr("x", function (d) {
+                                        return x(d.Population) + x.rangeBand() / 2.7;
+                                    })
+                                    .attr("width", x.rangeBand() / 4)
+                                    .attr("y", function (d) {
+                                        return y(d.Value);
+                                    })
+                                    .attr("height", function (d) {
+                                        return height - y(d.Value);
+                                    });
+
+                            svg.selectAll("bar")
+                                    .data(dataset)
+                                    .enter().append("text")
+                                    .attr("class", "bar")
+                                    .attr("text-anchor", "middle")
+                                    .attr("x", function (d) {
+                                        return x(d.Population) + 55;
+                                    })
+                                    .attr("y", function (d) {
+                                        return y(d.Value);
+                                    })
+                                    .text(function (d) {
+                                        return Math.round(d.Value * 1000) / 1000 + 'M';
+                                    });
+
+                        });
+                        // });
+                    }
+                    $(function() {
+                        $( "#dialog" ).dialog();
+                    });
+
+                });
+    });
+
+    // d3.selectAll("input").on("change", function change() {
+    //         var value = this.value;
+
+    //         switch (value) {
+    //             case "2015":
+    //                 map.column("2015").update();
+    //                 d3.select('#map').call(map.update, map);
+    //                 break;
+    //             case "2010":
+    //                 map.column("2010").update();
+    //                 d3.select('#map').call(map.update, map);
+    //                 break;
+    //             case "2005":
+    //                 map.column("2005").update();
+    //                 d3.select('#map').call(map.update, map);
+    //                 break;
+    //             case "2000":
+    //                 map.column("2000").update();
+    //                 d3.select('#map').call(map.update, map);
+    //                 break;
+    //             case "1995":
+    //                 map.column("1995").update();
+    //                 d3.select('#map').call(map.update, map);
+    //                 break;
+    //             case "1990":
+    //                 map.column("1990").update();
+    //                 d3.select('#map').call(map.update, map);
+    //                 break;
+    //         }
+    // });
+</script>
+
+</body>
+</html>

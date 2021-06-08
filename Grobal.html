@@ -1,0 +1,458 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>homepage</title>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="./css/home.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/flatly/bootstrap.min.css">
+  <link rel="stylesheet" href="https://bootswatch.com/5/flatly/bootstrap.css">
+  <link rel="stylesheet" href="https://bootswatch.com/_vendor/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="d3-geomap-1.0.1/css/d3.geomap.css" >
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js" charset="utf-8"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <script src="http://d3js.org/d3.v3.js" charset="utf-8"></script>
+  <script src="https://canvasjs.com/assets/script/canvasjs.min.js" type="text/javascript" ></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" charset="utf-8"></script>
+  <script src="d3-geomap-1.0.1/vendor/d3.geomap.dependencies.min.js"></script>
+  <script src="d3-geomap-1.0.1/js/d3.geomap.js"></script>
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+</head>
+
+
+<body data-spy="scroll" data-target=".navbar" data-offset="50">
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary">
+            <div class="container-fuild">
+                <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>   -->
+                <div class="collapse navbar-collapse" id="mynavbar">
+                    <ul class="nav navbar-nav">
+                        <li class="nav-item" >
+                            <a class="nav-link" href="Entrance.html">Home</a>
+                        </li>
+                        <li class="navbar-brand">
+                            <a href="Grobal.html">Global Level</a>
+                        </li>
+                        <!-- <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"> Country Level </a> 
+                            <ul class="dropdown-menu">
+                                <li><a href="other.html">LinearGraph</a></li> 
+                                <div class="dropdown-divider"></div> 
+                                <li><a href="other.html">BarChart</a></li>
+                            </ul> 
+                        </li> -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="Country.html">National  Level</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="">Source</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled" href="../help/">Help</a>
+                        </li>
+                    <!-- <ul class="navbar-nav ms-md-auto"> -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://github.com/VictorW010/Fit5147D3Project"><i class="fa fa-github"></i> GitHub</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <div id="home" class="parallax jumbotron">
+        <div class="container-fluid">
+                <h2 id ="title">COVID-19 (coronavirus) Vaccination Progress In World Level</h3>  
+            <!-- <div class="row text-center">
+                <p id ="atti">Progress Attributes: </p>
+            </div> -->
+                <legend class="mt-4">Vaccination Progress Attributes:</legend>
+            <table style="width:100%">
+                <tr>
+                    <th>
+                        <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+                            <div class="card-header">Attributes 1</div>
+                            <div class="card-body">
+                            <h4 class="card-title">total_vaccinations</h4>
+                            <p class="card-text"><br />Total number of COVID-19 vaccination doses administered.</p><br />
+                            </div>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="card text-white bg-secondary mb-3" style="max-width: 20rem;">
+                            <div class="card-header">Attributes 2</div>
+                            <div class="card-body">
+                            <h4 class="card-title">people_vaccinated</h4>
+                            <p class="card-text"><br />Total number of people who received at least one vaccine dose</p>
+                            <br />
+                            </div>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="card text-white bg-success mb-3" style="max-width: 20rem;">
+                            <div class="card-header">Attributes 3</div>
+                            <div class="card-body">
+                            <h4 class="card-title">people_fully_vaccinated</h4>
+                            <p class="card-text"><br />Total number of people who received all doses prescribed by the vaccination protocol.</p>
+                            <p></p>
+                            </div>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="card text-white bg-danger mb-3" style="max-width: 20rem;">
+                            <div class="card-header">Attributes 4</div>
+                            <div class="card-body">
+                            <h4 class="card-title">new_vaccinations</h4>
+                            <p class="card-text"><br />New COVID-19 vaccination doses administered (only calculated for consecutive days).</p>
+                            <p></p>
+                            </div>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="card text-white bg-info mb-3" style="max-width: 20rem;">
+                            <div class="card-header">Attributes 5</div>
+                            <div class="card-body">
+                            <h5 class="card-title">new_vaccinations_smoothed</h5>
+                            <p class="card-text"> New COVID-19 vaccination doses administered (7-day smoothed).
+                                <small>&emsp;&emsp;&emsp; This produces a complete series of daily figures, which is then averaged over a rolling 7-day window.</small>
+                            </p>
+                            </div>
+                        </div>
+                    </th>
+                </table>
+
+            <!-- <fieldset class="form-group">
+                
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="0" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        total_vaccinations</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="1" id="flexCheckChecked" checked="">
+                    <label class="form-check-label" for="flexCheckChecked">
+                        people_vaccinated</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="2" id="flexCheckChecked" checked="">
+                    <label class="form-check-label" for="flexCheckChecked">
+                        people_fully_vaccinated</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="3" id="flexCheckChecked" checked="">
+                    <label class="form-check-label" for="flexCheckChecked">
+                        new_vaccinations </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="4" id="flexCheckChecked" checked="">
+                    <label class="form-check-label" for="flexCheckChecked">
+                        new_vaccinations_smoothed</label>
+                </div>
+                </fieldset> -->
+        </div>
+    </div>
+    <div class="dropdown">
+        <button onclick="myFunction()" class="dropbtn">Menu</button>
+        <div id="myDropdown" class="dropdown-content">
+            <a href="#map">Latest Condition</a>
+            <a href="#continents">Continents Trend</a>
+        </div>
+    </div>
+    <div>
+        <h1  id ="title" style="text-align: center;"> Map(choropleth) Display</h1>
+        <small style ="position: absolute; left: 60%;">(Data ends at 2021-05-31)</small>
+    </div>
+    <div id="map">
+        <br />
+        <strong class="atti" style = 'padding-right: 2.0em;'>&emsp;Please, choose the number of Attributes. </strong><br />
+        <small class="atti" style = 'padding-right: 2.0em;'>&emsp;(1.total_vaccinations, 2.people_vaccinated , 3.people_fully_vaccinated, 4.new_vaccinations, 5.new_vaccinations_smoothed) </small><br />
+        <label > &emsp;&emsp; Attributes</label>
+        <input id="slider" type="range" min="1" max="5" value="1" step="1" />
+        <span id="range">total_vaccinations</span>
+    
+        <!-- <input id="slider", type="date"> -->
+
+        <div id="dialog"></div>
+        <div id="map"></div>
+        <div id="barchart"></div> 
+    
+        <script type="text/javascript">
+            function myFunction() {
+                document.getElementById("myDropdown").classList.toggle("show");
+            }
+        
+            // Close the dropdown if the user clicks outside of it
+            window.onclick = function(event) {
+                if (!event.target.matches('.dropbtn')) {
+                    var dropdowns = document.getElementsByClassName("dropdown-content");
+                    var i;
+                    for (i = 0; i < dropdowns.length; i++) {
+                        var openDropdown = dropdowns[i];
+                        if (openDropdown.classList.contains('show')) {
+                            openDropdown.classList.remove('show');
+                        }
+                    }
+                }
+            }
+        
+            onload = function() {
+                var $ = function(id) { 
+                    return document.getElementById(id); 
+                };
+                $('slider').oninput = function() { $('range').innerHTML = this.value; 
+                                                    console.log("type: "+this.value);
+                                                };
+                $('slider').oninput();
+            };
+        
+        
+            var format = function(d) {
+                // console.log(d);
+                d = d / 1000000;
+                return d3.format(',.02f')(d) + 'M';
+            }
+        
+            var map = d3.geomap.choropleth()
+                .geofile('test/countries.json')
+                .colors(colorbrewer.YlGnBu[9])
+                .format(format)
+                .column("total_vaccinations")
+                .legend(true)
+                .unitId('iso_code');
+            var path = d3.geo.path();
+        
+            d3.csv('./data/date.csv', function(error, data) {
+                d3.select('#map')
+                        .datum(data).call(map.draw, map)
+                        .on("click", function (d) {
+                            d3.select("#dialog").selectAll("*").remove();
+                            var name = map.properties.name;
+                            console.log("countryname: "+ name);
+                            if (name != null)  {
+                            // if (name.trim() == " ") break;
+                            var margin = {top: 20, right: 20, bottom: 70, left: 40},
+                                    width = 200 - margin.left - margin.right,
+                                    height = 430 - margin.top - margin.bottom;
+        
+                            var x = d3.scale.ordinal().rangeRoundBands([0, width], .05);
+        
+                            var y = d3.scale.linear().range([height, 0]);
+        
+                            var xAxis = d3.svg.axis()
+                                    .scale(x)
+                                    .orient("bottom");
+        
+                            var yAxis = d3.svg.axis()
+                                    .scale(y)
+                                    .orient("left")
+                                    .tickFormat(d3.format("g"))
+                                    .tickSize(-5);
+        
+                            var svg = d3.select("#dialog").append("svg")
+                                    .attr("width", width + margin.left + margin.right)
+                                    .attr("height", height + margin.top + margin.bottom)
+                                    .append("g")
+                                    .attr("transform",
+                                            "translate(" + margin.left + "," + margin.top + ")");
+        
+                                $( "#dialog" ).dialog({
+                                    position: { my: "left top", at: "right center" }
+                                });
+        
+                                // d3.csv('./data/date.csv', function (error, data) {
+                                d3.csv('./data/country/2021-05-31.csv', function (error, data) {                                
+                                    data = data.filter(function (column) {
+                                        return column['iso_code'] == name;
+                                        // return column['location'] == name;
+                                    });
+                                    
+                                    // var vaccinationNum = [];
+                                    var vaccinationNum = data.map(function (o) {
+                                        var r = map.properties.column;
+                                        // console.log(o[r]);
+                                        return o[r];
+                                        // vaccinationNum = o[r];
+                                    });
+                                    // console.log(vaccinationNum);
+                                    var dataset = [{"Number": "vaccinations", "Value": Number(vaccinationNum)/1000}]
+                                    dataset.forEach(function (d) {
+                                        // console.log("r"+d.Value);
+                                        d.Number = d.Number;
+                                        d.Value = +d.Value;
+                                    });
+        
+                                    x.domain(dataset.map(function (d) {
+                                        return d.Number;
+                                    }));
+                                    y.domain([0, d3.max(dataset, function (d) {
+                                        console.log("value: " + d.Value);
+                                        return d.Value;
+                                    })]);
+        
+                                    svg.append("g")
+                                            .attr("class", "x axis")
+                                            .attr("transform", "translate(0," + height + ")")
+                                            .call(xAxis)
+                                            .selectAll("text")
+                                            .style("text-anchor", "end")
+                                            .attr("dx", "2.5em")
+                                            .attr("dy", "1em");
+        
+                                    svg.append("g")
+                                            .attr("class", "y axis")
+                                            .call(yAxis)
+                                            .append("text")
+                                            .attr("transform", "rotate(-90)")
+                                            .attr("y", 8)
+                                            .attr("dy", ".71em")
+                                            .style("text-anchor", "end")
+                                            .text("Doses Sum(/1000)");
+        
+                                    svg.append("text")
+                                            .attr("x", (width / 2))
+                                            .attr("y", 0 - (margin.top / 2))
+                                            .attr("text-anchor", "middle")
+                                            .style("font-size", "14px")
+                                            .style("text-decoration", "underline")
+                                            .text(map.properties.country + " (" + map.properties.column + ")")
+        
+                                    var colors = d3.scale.ordinal()
+                                            .range(['#40216f']);
+        
+                                    svg.selectAll("bar")
+                                            .data(dataset)
+                                            .enter().append("rect")
+                                            .style("fill", function (d,i) {
+                                                var x = Math.floor(Math.random() * 10);;
+                                                // console.log(colors)
+                                                // console.log(x);
+                                                return colors(x);
+                                            })
+                                            .attr("x", function (d) {
+                                                return x(d.Number) + x.rangeBand() / 2;
+                                            })
+                                            .attr("width", x.rangeBand() / 3)
+                                            .attr("y", function (d) {
+                                                return y(d.Value);
+                                            })
+                                            .attr("height", function (d) {
+                                                return height - y(d.Value);
+                                            });
+        
+                                    svg.selectAll("bar")
+                                            .data(dataset)
+                                            .enter().append("text")
+                                            .attr("class", "bar")
+                                            .attr("text-anchor", "middle")
+                                            .attr("x", function (d) {
+                                                return x(d.Number) + 30;
+                                            })
+                                            .attr("y", function (d) {
+                                                return y(d.Value);
+                                            })
+                                            .text(function (d) {
+                                                // console.log(d.Value)
+                                                return Math.round(d.Value * 1000) / 1000 + "(/1000)";
+                                            });
+                                });
+                                // });
+                            }
+                            $(function() {
+                                $( "#dialog" ).dialog();
+                            });
+        
+                        });
+            });
+// (1.total_vaccinations, 2.people_vaccinated , 3.people_fully_vaccinated, 4.new_vaccinations, 5.new_vaccinations_smoothed) </small><br />
+
+            d3.selectAll("input").on("change", function change() {
+                    var value = this.value;
+                    console.log("model value: "+value);
+                    switch (value) {
+                        case "1":
+                            map.column("total_vaccinations").update();
+                            d3.select('#map').call(map.update, map);
+                            break;
+                        case "2":
+                            map.column("people_vaccinated").update();
+                            d3.select('#map').call(map.update, map);
+                            break;
+                        case "3":
+                            map.column("people_fully_vaccinated").update();
+                            d3.select('#map').call(map.update, map);
+                            break;
+                        case "4":
+                            map.column("new_vaccinations").update();
+                            d3.select('#map').call(map.update, map);
+                            break;
+                        case "5":
+                            map.column("new_vaccinations_smoothed").update();
+                            d3.select('#map').call(map.update, map);
+                            break;
+                    }
+            });
+        </script>  
+    </div>
+    <br />
+    <br />
+    <div class = "footer">
+        <!-- <style>#return{position:absolute; left: 4%; }</style>
+        <a id= "return" class="btn btn-primary" href="Entrance.html" role="button">return</a> -->
+        <!--based on http://www.potlabicons.com/  -->
+        <style>#potlab1{position:absolute; left: 90%;}#potlab2{position:absolute; left: 92%;} #potlab3{position:absolute; left: 94%;}</style> 
+        <svg id="potlab1" viewBox="0 0 24 24" width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <style>@keyframes meterturn{0%,to{transform:rotate(0deg)}50%{transform:rotate(-90deg)}};</style>
+            <circle cx="12" cy="12" r="9.25" stroke="#242424" stroke-width="1.5"/><path fill-rule="evenodd" clip-rule="evenodd" d="M14.246 9.033l-.516 3.97-3.18 2.431a.5.5 0 01-.8-.461l.516-3.97 3.18-2.431a.5.5 0 01.8.461zM12 13a1 1 0 100-2 1 1 0 000 2z" fill="#242424" style="animation:meterturn 4s infinite;transform-origin:50% 50%"/>
+        </svg>
+        <svg id="potlab2" viewBox="0 0 24 24"  width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <style>@keyframes location-bounce{0%,to{transform:translateY(0)}50%{transform:translateY(-1px)}}</style>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M12.75 15.96a7.001 7.001 0 10-1.5 0V19h1.5v-3.04zM17.5 9a5.5 5.5 0 11-11 0 5.5 5.5 0 0111 0z" fill="#242424" style="animation:location-bounce 0.5s linear infinite both"/>
+            <path d="M7 21h10" stroke="#242424"/>
+        </svg>                         
+        <svg id="potlab3" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <style>
+                .rotate-1 {  animation: rotate .3s linear infinite;  transform-origin: 75% 80%;}
+                .rotate-3 {  animation: rotate .3s linear infinite;  transform-origin: 22% 23%;}
+                .rotate-2 {  animation: rotate .3s linear infinite;  transform-origin: 80% 24%;}
+                .rotate-4 { animation: rotate 0.3s linear infinite; transform-origin: 25% 79%;}
+                @keyframes rotate { from { transform: rotate(0deg); }  to { transform: rotate(360deg); } }
+            </style>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M8.21802 8.62341L5.03038 5.83423L5.53038 5.33423L8.75788 6.94798C9.12026 6.57096 9.63003 6.33423 10.1995 6.33423H11V5.83423C11 5.55809 11.2239 5.33423 11.5 5.33423H12.5C12.7761 5.33423 13 5.55809 13 5.83423V6.33423H13.8005C14.4587 6.33423 15.0371 6.65046 15.4004 7.13402L19 5.33423L19.5 5.83423L15.7338 9.12968L15.083 15.9628L18 18.8342L17.5556 19.3342L14.5503 17.6438C14.182 18.0685 13.639 18.3342 13.0386 18.3342H10.9614C10.3834 18.3342 9.85852 18.0879 9.49159 17.6906L6.56956 19.3342L6.12512 18.8342L8.92773 16.0754L8.21802 8.62341ZM10.5 7.33423C10.2239 7.33423 10 7.55809 10 7.83423V8.83423C10 9.11037 10.2239 9.33423 10.5 9.33423H13.5C13.7761 9.33423 14 9.11037 14 8.83423V7.83423C14 7.55809 13.7761 7.33423 13.5 7.33423H10.5Z" fill="#242424" />
+            <path class="rotate-1" d="M17.805 20.9567L17.9688 20.6395C18.0295 20.5219 18.0489 20.388 18.0263 20.2599C18.0522 20.2633 18.0784 20.2653 18.1051 20.2659C18.5375 20.2767 18.897 19.9243 18.9081 19.4788C18.9111 19.3566 18.8876 19.24 18.843 19.135C18.9453 19.1238 19.0465 19.0836 19.1348 19.0115L20.9821 17.5036C21.1767 17.3448 21.2399 17.0691 21.1346 16.8378C21.0025 16.5475 20.6583 16.4349 20.3872 16.5932L18.9389 17.4395C18.7295 17.5618 18.5583 17.7431 18.4452 17.962L18.2814 18.2792C18.2207 18.3968 18.2014 18.5306 18.224 18.6588C18.1981 18.6554 18.1718 18.6534 18.1451 18.6528C17.7127 18.642 17.3532 18.9944 17.3421 19.4399C17.3391 19.5621 17.3626 19.6787 17.4073 19.7837C17.3049 19.7949 17.2037 19.8351 17.1154 19.9072L15.2681 21.4151C15.0735 21.5739 15.0103 21.8496 15.1156 22.0809C15.2477 22.3712 15.5919 22.4838 15.863 22.3255L17.3113 21.4792C17.5207 21.3569 17.692 21.1756 17.805 20.9567Z" fill="#242424" />
+            <path class="rotate-2" d="M17.656 4.91758L17.9488 5.12177C18.0574 5.19747 18.1875 5.23429 18.3175 5.22876C18.3108 5.25399 18.3053 5.27979 18.3012 5.30611C18.2335 5.73335 18.5354 6.13619 18.9756 6.20589C19.0963 6.22501 19.215 6.21707 19.3249 6.18664C19.3226 6.28959 19.3491 6.39522 19.4089 6.49224L20.66 8.52224C20.7918 8.73608 21.0568 8.83503 21.2999 8.7612C21.6051 8.66852 21.7622 8.34213 21.6409 8.05256L20.993 6.50529C20.8993 6.28161 20.7422 6.08795 20.5402 5.94703L20.2473 5.74284C20.1388 5.66714 20.0086 5.63032 19.8786 5.63585C19.8853 5.61062 19.8908 5.58482 19.895 5.5585C19.9626 5.13126 19.6607 4.72842 19.2206 4.65872C19.0998 4.6396 18.9812 4.64754 18.8712 4.67797C18.8736 4.57502 18.8471 4.46939 18.7873 4.37237L17.5361 2.34237C17.4043 2.12853 17.1394 2.02958 16.8962 2.10342C16.591 2.19609 16.434 2.52248 16.5552 2.81205L17.2031 4.35932C17.2968 4.583 17.4539 4.77666 17.656 4.91758Z"  fill="#242424" />
+            <path class="rotate-3" d="M6.87438 4.91758L6.58156 5.12177C6.473 5.19747 6.34285 5.23429 6.21287 5.22876C6.21958 5.25399 6.22505 5.27979 6.22922 5.30611C6.29688 5.73335 5.99493 6.13619 5.55481 6.20589C5.43404 6.22501 5.31542 6.21707 5.20546 6.18664C5.20782 6.28959 5.18129 6.39522 5.12149 6.49224L3.87036 8.52224C3.73856 8.73608 3.47359 8.83503 3.23045 8.7612C2.92525 8.66852 2.7682 8.34213 2.88946 8.05256L3.53737 6.50529C3.63104 6.28161 3.78813 6.08795 3.99023 5.94703L4.28305 5.74284C4.39161 5.66714 4.52176 5.63032 4.65174 5.63585C4.64503 5.61062 4.63956 5.58482 4.63539 5.5585C4.56773 5.13126 4.86968 4.72842 5.3098 4.65872C5.43057 4.6396 5.54919 4.64754 5.65915 4.67797C5.65679 4.57502 5.68333 4.46939 5.74312 4.37237L6.99425 2.34237C7.12605 2.12853 7.39102 2.02958 7.63416 2.10342C7.93936 2.19609 8.09641 2.52248 7.97515 2.81205L7.32724 4.35932C7.23357 4.583 7.07648 4.77666 6.87438 4.91758Z" fill="#242424" />
+            <path class="rotate-4" d="M5.41275 18.0453L5.63154 18.3273C5.71265 18.4319 5.75602 18.56 5.7571 18.6901C5.78196 18.6821 5.80744 18.6754 5.83352 18.6699C6.25677 18.5806 6.67442 18.8617 6.76637 19.2977C6.7916 19.4174 6.78968 19.5363 6.76488 19.6476C6.86757 19.64 6.97441 19.6612 7.07434 19.716L9.16522 20.8625C9.38548 20.9832 9.49774 21.2429 9.43635 21.4894C9.35928 21.7989 9.04129 21.9724 8.74593 21.8659L7.16778 21.2974C6.93963 21.2152 6.73825 21.0681 6.58725 20.8734L6.36846 20.5914C6.28735 20.4868 6.24397 20.3587 6.24289 20.2286C6.21804 20.2366 6.19255 20.2433 6.16648 20.2488C5.74323 20.3381 5.32557 20.057 5.23363 19.621C5.2084 19.5013 5.21032 19.3824 5.23512 19.2711C5.13243 19.2787 5.02558 19.2575 4.92565 19.2027L2.83477 18.0562C2.61452 17.9355 2.50226 17.6759 2.56365 17.4293C2.64072 17.1198 2.95871 16.9464 3.25407 17.0528L4.83222 17.6213C5.06037 17.7035 5.26175 17.8506 5.41275 18.0453Z" fill="#242424" />
+        </svg>
+     </div>
+    <br />
+    <br />
+    <div class="content" id="continents">
+        <div class="row">
+            <div class="col-sm-4">
+                <p><strong> Vaccination Progress </strong><br>
+                <b style="font-size:35px">Continents Trend</b></p>
+                <p style="line-height: 1.8;">
+                    In each continent, Asia currently has the largest number of vaccines and the largest number of vaccinations, 
+                    as well as the number of new vaccines per day. However, the number of vaccines per capita is the highest in North America. 
+                    This may be due to the fact that Asia has a larger population base, whereas in North America, 
+                    there is more health care available per person on an equal basis. In addition, Europe is in the middle of the rank and Africa almost has the smallest number of values for each attribute. 
+                    it is worth mentioning that people in North America are more likely to be fully vaccinated than on other continents.
+                    <a href="https://ourworldindata.org/coronavirus#coronavirus-country-profiles" style="color: inherit;text-decoration:underline;">Find out more.</a> 
+                </p>
+                <br />
+                <img src="./pic/Pie1.png" style="width: 100%; height: 40%; position:relative" >
+                <img src="./pic/Pie2.png" style="width: 100%; height: 40%; position:relative" >
+            </div>
+            <div class="col-sm-8">
+                <img src="./pic/continentTrend.png" style="width: 100%; height: 120%; position:relative" alt="Continent Trend LinearGraph">
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+
