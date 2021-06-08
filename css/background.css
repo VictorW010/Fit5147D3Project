@@ -1,0 +1,110 @@
+html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    position: relative;
+    min-width:700px;
+  }
+  .parallax {
+    opacity: 0.9;
+    background-image: url("../pic/vaccine.png");
+    height: 85%; 
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  
+  .jumbotron { /*. indicates a class selector; # indicates a id selector*/
+    
+    display: flex;
+    align-items: center;
+    opacity: 0.9;
+    color: #eeeeee;
+    height: 530px;
+    text-shadow: 0.45px 0.45px 0.45px #000000;
+  }
+  
+  .jumbotron h2 {
+    font-size: 43px;
+    font-weight: 700;
+    margin: 0;
+    color: rgb(7, 7, 7);
+  }
+  
+  .jumbotron h3 {
+    margin: 0 0 20px; /*top ; right&left ; bottom*/
+    color: #000;
+  }
+  
+  div .row img {
+    margin: 5px 50px 40px; /*top ; right&left ; bottom*/
+    width: 70%;
+    /* position: relative;
+    z-index: -1; */
+  }
+  
+   img:hover {
+    opacity: 0.6;
+  }
+  
+  .content {
+    margin: 50px;
+    width: 60%;
+    font-family: fantasy;
+}
+
+.bottom_parallax {
+    /* The image used */
+    background-image: url('../pic/vaccine.png');
+    opacity: 0.9;
+    height: 55%; 
+    padding: 180px;
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: #ffffff;
+    font-size: 20px;
+    text-align: center;
+    font-family: fantasy;
+}
+
+  .btn.btn-primary{
+    border-radius: 10px;
+    border: 0px;
+    color: #706f6f;
+    text-shadow: none;
+    background-color: dodgerblue;
+  }
+  
+  .btn.btn-primary:hover {
+    color: #ffffff;
+    background-color: #706f6f;
+    opacity: 0.7;
+  }
+  
+  .axis path,
+  .axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+  }
+  
+  #stuid {
+    text-align: right;
+    font-size: 10px sans-serif;
+    font-weight: 700;
+    margin: 0;
+    padding: 5px 0 10px;
+    color: rgb(7, 7, 7);
+  }
+  
+  @media only screen and (max-width : 480px) {
+    h1 { font-size: 40px; }
+}

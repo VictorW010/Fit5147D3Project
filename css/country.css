@@ -1,0 +1,58 @@
+html{
+    scroll-behavior: smooth;
+}
+body {
+    padding: 20px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    position: relative;
+    min-width:700px;
+    background-color:azure;
+  }
+#title{
+font-family: 'Roboto', sans-serif;
+font-weight: 300;
+text-align: center;
+border-radius: 5px;
+border: 10px;
+color: #706f6f;
+text-shadow:antiquewhite;
+}
+
+.at{
+    position:relative;
+    align-self:flex-start;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    color: #706f6f;
+    text-shadow:antiquewhite;
+    background-color: none;
+  }
+.cumtable{
+    display: none;
+    font-family: 'Roboto', sans-serif;
+    /* font-weight: 50; */
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow: ellipsis; 
+    table-layout:fixed;
+    word-wrap:break-word;
+} 
+
+.radar-chart .area {
+fill-opacity: 0.7;
+}
+.radar-chart.focus .area {
+fill-opacity: 0.3;
+}
+.radar-chart.focus .area.focused {
+fill-opacity: 0.9;
+}
+.area.germany, .germany .circle {
+fill: #FFD700;
+stroke: none;
+}
+.area.argentina, .argentina .circle {
+fill: #ADD8E6;
+stroke: none;
+}
